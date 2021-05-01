@@ -140,8 +140,8 @@ export function onChangeField<TClass, P>(callback: (p: TClass, v: P, prop: keyof
         const descriptor = Object.getOwnPropertyDescriptor(target, propertyKey) || { configurable: true, enumerable: true };
 
         let value: P;
-        let originalGet = descriptor.get || (() => value);
-        let originalSet = descriptor.set || (val => value = val);
+        const originalGet = descriptor.get || (() => value);
+        const originalSet = descriptor.set || (val => value = val);
         descriptor.get = originalGet;
         descriptor.set = function (newVal: P) {
             const currentVal = originalGet.call(this);

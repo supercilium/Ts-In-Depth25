@@ -297,3 +297,4 @@ lib.email = 'newLibrary@email.com';
 // Change lib's field 'id'
 lib.id = 1;
 lib.id = 2;
+console.log(lib)
