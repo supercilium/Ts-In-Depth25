@@ -1,3 +1,5 @@
+import { Library } from "./classes";
+
 export function sealed(p: string) {
     return function (target: Function): void {
         console.log(`Sealing the constructor ${p}`);
@@ -131,4 +133,25 @@ export function positiveInteger(target: object, methodName: string, descriptor: 
     }
 
     return descriptor;
+}
+
+export function onChangeField<TClass, P>(callback: (p: TClass, v: P, prop: keyof TClass) => void): any {
+    return function (target: object, propertyKey: string) {
+        const descriptor = Object.getOwnPropertyDescriptor(target, propertyKey) || { configurable: true, enumerable: true };
+
+        let value: P;
+        const originalGet = descriptor.get || (() => value);
+        const originalSet = descriptor.set || (val => value = val);
+        descriptor.get = originalGet;
+        descriptor.set = function (newVal: P) {
+            const currentVal = originalGet.call(this);
+            if (newVal != currentVal) {
+                callback.call(target.constructor, this, newVal, propertyKey);
+            }
+            originalSet.call(this, newVal, propertyKey);
+        }
+
+        Object.defineProperty(target, propertyKey, descriptor);
+        return descriptor;
+    }
 }

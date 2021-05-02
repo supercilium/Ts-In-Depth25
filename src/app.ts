@@ -154,12 +154,12 @@ if (flag) {
 }
 
 // 06.06
-let lib: Library = {
-    id: 1,
-    name: 'Karl',
-    address: 'Unknown',
-};
-const libObject = new Library;
+// let lib: Library = {
+//     id: 1,
+//     name: 'Karl',
+//     address: 'Unknown',
+// };
+// const libObject = new Library;
 // console.log(lib)
 
 // 07.01
@@ -269,9 +269,32 @@ const updatedBook: UpdatedBook = {
 
 
 // 09.03
-console.log('begin')
-const p = logSearchResults(Category.Software)
-    .then(data => console.log(data))
-    .catch(err => console.log(err))
-console.log(p)
-console.log('end')
+// console.log('begin')
+// const p = logSearchResults(Category.Software)
+//     .then(data => console.log(data))
+//     .catch(err => console.log(err))
+// console.log(p)
+// console.log('end')
+
+
+// Task extra 1.
+// Add to Library class string property 'email' and static method that notifies when changing library's email - 'onChangeEmail'
+// `${self.name} changed email from '${self.email}' to '${newValue}'`
+// Create property decorator as fabric that accepts callback parameter and string value .
+// Decorator should call callback if property gets change
+// Create instance of Library and try to change email field- get some messages in console
+
+const lib = new Library();
+
+lib.name = 'Library';
+lib.email = 'library@email.com';
+lib.email = 'newLibrary@email.com';
+
+// Task extra 2.
+// Add generic types to decorator from task 1. Add decorator to number field 'id'
+// Change callback onChangeEmail so it can work with any parameter:
+// add third parameter 'propName', change string template to correctly write that field changes
+// Change lib's field 'id'
+lib.id = 1;
+lib.id = 2;
+console.log(lib)
